@@ -6,9 +6,9 @@ import myutil
 
 def main():
     fileio = myutil.FileIO()
-    for i, s in enumerate(fileio.load(path="paifu/txt/2019093001.txt")):
+    for i, s in enumerate(fileio.read(path="paifu/txt/2019093001.txt")):
         json_ = json.loads(urllib.parse.unquote(s).split("json=")[1])
-        json.dump(json_, open(f"paifu/json/{'-'.join(map(str, json_['log'][0][0][:2]))}.json", 'w') , ensure_ascii=False)
+        fileio.write(data=json_, path=f"paifu/json/{'-'.join(map(str, json_['log'][0][0][:2]))}.json")
 
 
 if __name__ == '__main__':

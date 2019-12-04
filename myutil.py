@@ -1,14 +1,13 @@
+import json
+import os
 from typing import List
 
 
 class FileIO:
     @staticmethod
-    def load(path: str) -> List[str]:
-        if type(path) is str:
-            with open(path, mode='r') as f:
-                return f.readlines()
-        if type(path) is json:
-            pass
+    def read(path: str) -> List[str]:
+        with open(path, mode='r') as f:
+            return f.readlines()
 
     @staticmethod
     def output(li: List[str], path: str):
@@ -16,6 +15,11 @@ class FileIO:
             f.writelines(li)
 
     @staticmethod
-    def write(str_: str, path: str):
-        with open(path, mode='a') as f:
-            print(str_, file=f)
+    def write(data:str, path:str, mode_:str="w"):
+        _, ext = os.path.splitext(path)
+
+        if ext == ".txt":
+            with open(path, mode=mode_) as f:
+                print(data, file=f)
+        if ext == ".json":
+            json.dump(data, open(path, 'w') , ensure_ascii=False)
